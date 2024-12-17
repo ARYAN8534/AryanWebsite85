@@ -1,0 +1,284 @@
+/* Base styles */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #8f7272;
+  background-color:rgb(241, 235, 235);
+}
+
+.contact {
+  max-width: 1900px;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+/* Header image */
+.contact img {
+  width: 100%;
+  height: auto;
+  max-height: 800px;
+  object-fit: cover;
+  border-radius: 0px;
+  margin-bottom: 0px;
+}
+
+h1, h2, h3 {
+  color: #fafbfb;
+  margin-bottom: 20px;
+}
+
+/* Overall form container styling */
+#contact1 {
+  padding: 30px;
+  max-width: 580px;
+  margin: 50px auto;
+  background: linear-gradient(to bottom right, #100f0f, #9b9b9b);
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Header styling */
+#contact1 h2 {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #f41515;
+  border-bottom: 2px solid #007BFF;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Form elements alignment */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Label styling */
+label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #a02e36;
+  align-self: flex-start;
+}
+
+/* Input and textarea common styles */
+input, textarea {
+  font-family: 'Roboto', sans-serif;
+  padding: 12px 15px;
+  font-size: 1rem;
+  width: 100%;
+  border: 2px solid #007BFF;
+  border-radius: 8px;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Specific styles for date and phone inputs */
+input[type="date"], input[type="tel"] {
+  padding: 10px 12px;
+}
+
+/* Textarea specific styles */
+textarea {
+  height: 70px;
+  resize: none;
+}
+
+/* Input and textarea focus effect */
+input:focus, textarea:focus {
+  border-color: #0056b3;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit button styling */
+button {
+  font-family: 'Poppins', sans-serif;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  background: linear-gradient(to right, #007BFF, #0056b3);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  margin-top: -70px;
+}
+
+/* Button hover and focus effects */
+button:hover {
+  background: linear-gradient(to right, #0056b3, #007BFF);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+}
+
+/* Status message styling */
+p {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .contact {
+    padding: 20px;
+  }
+
+  input, textarea {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+
+
+
+
+/* Contact information styles */
+.MyId {
+  background-color: #fbfbfb;
+  color:black;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+
+}
+
+.MyId p {
+  margin-bottom: 15px;
+}
+
+.MyId a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.MyId a:hover {
+  color: #2980b9;
+}
+
+/* Map styles */
+iframe {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+/* FAQ styles */
+.faq {
+  background-color:black;
+  color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border:1px solid red;
+  text-align: center;
+  width:500px;
+  margin-left:500px;
+  margin-bottom: 50px;;
+}
+
+.faq ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.faq li {
+  margin-bottom: 20px;
+}
+
+.faq strong {
+  color: #2c3e50;
+}
+
+/* Icon styles */
+.fa-linkedin, .fa-whatsapp {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+.fa-linkedin {
+  color: #0077B5;
+}
+
+.fa-whatsapp {
+  color: #25D366;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .contact {
+    padding: 10px;
+  }
+
+  form, .MyId, .faq {
+    padding: 20px;
+  }
+
+  iframe {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    font-size: 14px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+  }
+}
+
+
+
+.d {
+
+  margin-left:650px;
+  width:400px;
+  margin-top: -230px;
+
+}
+
+.MyId1, a {
+  margin-right: 10px;
+}
+
+.MyId1 {
+  margin-left: 700px;
+
+}
+
+
+

@@ -1,0 +1,833 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Memory Matching Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+		    background: radial-gradient(circle at top, #4ca1af, #c4e0e5);
+			border:4px solid  	#FFF5EE ;
+			border-radius: 10px;
+
+			
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #4ca1af, #c4e0e5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 1500px;
+			animation: backgroundAnimation 10s infinite;
+        }
+		
+	
+		
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-gap: 20px;
+            width: 90%;
+            height: 90%;		
+            perspective: 1000px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+			transform: rotateY(-1deg); /* 3D effect */
+        }
+
+       /* Login styles */
+		.login-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 300px; /* Width of the login container */
+			padding: 20px; /* Padding around the content */
+			background-color: #f9f9f9; /* Background color */
+			border-radius: 10px; /* Rounded corners */
+			background: radial-gradient(circle at top, #4ca1af, #c4e0e5);
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+			margin: 0 auto; /* Centering the container */
+			transform: rotateY(-15deg); /* 3D effect */
+		}
+
+		.login-container h2 {
+			margin-bottom: 20px; /* Space below the heading */
+			color: #333; /* Heading color */
+		}
+
+		.login-container input {
+			width: 100%; /* Full width of the container */
+			padding: 10px; /* Padding inside the input fields */
+			margin: 10px 0; /* Space between input fields */
+			border: 1px solid #ccc; /* Border for input fields */
+			border-radius: 5px; /* Rounded corners for input */
+			font-size: 16px; /* Font size */
+		}
+
+		.login-container button {
+			width: 100%; /* Full width of the button */
+			padding: 10px; /* Padding inside the button */
+			background-color: #007bff; /* Button background color */
+			color: white; /* Button text color */
+			border: none; /* Remove border */
+			border-radius: 5px; /* Rounded corners for button */
+			cursor: pointer; /* Pointer cursor on hover */
+			font-size: 16px; /* Font size */
+			transition: background-color 0.3s; /* Smooth transition for hover effect */
+		}
+
+		.login-container button:hover {
+			background-color: #0056b3; /* Darker shade on hover */
+		}
+
+        
+		 
+		
+		
+		  .player-profiles {
+			display: flex;
+			Gap: 5px;
+			justify-content: space-between;
+			perspective: 1000px; /* Add perspective for the 3D effect */
+			transform: rotateY(20deg); /* Rotate the whole container along the Y-axis */
+			transition: transform 0.5s ease; /* Smooth transition */
+			
+		}
+
+
+
+
+        .player-profile:hover {
+            transform: scale(1.05);
+			transform: rotateY(-20deg);
+        }
+
+        .player-profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            transition: transform 0.5s;
+        }
+
+        .player-profile:hover img {
+            transform: rotateY(360deg);
+        }
+
+        .game-area {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            transform: rotateY(0deg);
+        }
+
+        .scoreboard {
+            margin-bottom: 20px;
+            color: black;
+            text-align: center;
+        }
+		
+		.scoreboard h2 {
+		transition: transform 0.3s, color 0.3s;
+	    }
+
+		.scoreboard h2.updated {
+			transform: scale(1.1);
+			color: #007bff;
+		}
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-gap: 15px;
+        }
+         
+		.game-board:hover {
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+		}
+
+		 
+        .card {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+			transition: transform 0.8s cubic-bezier(0.5, 0.2, 0.5, 1);
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card .front, .card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+        }
+
+        .card .front {
+            background-color: #2196F3;
+        }
+
+        .card .back {
+            background-color: #FFC107;
+            transform: rotateY(180deg);
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+		
+		/* Leaderboard */
+		.leaderboard-container {
+			transform: rotateY(-15deg); /* 3D effect */
+		}
+
+		.leaderboard-container h2 {
+			color: black;
+			text-align: center;
+			margin-bottom: 10px;
+		}
+
+		.leaderboard-container table {
+			width: 100%;
+			background-color: rgba(255, 255, 255, 0.8);
+			 border: 2px solid #4ca1af;
+			border-collapse: collapse;
+		}
+
+		.leaderboard-container th, .leaderboard-container td {
+			padding: 10px;
+			text-align: center;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.leaderboard-container th {
+			background-color: #4ca1af;
+			color: white;
+		}
+
+		.leaderboard-container td {
+			background-color: black;
+			
+		}
+		
+		.leaderboard-container tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+        #timer {
+			font-size: 20px;
+			color: red;
+			background-color: rgba(0, 0, 0, 0.7);
+			padding: 10px;
+			border-radius: 10px;
+			text-align: center;
+			transform: rotateY(20deg); /* Yahan 3D effect ke liye rotation */
+			perspective: 500px;  /* Depth effect ke liye perspective */
+			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* Shadow for more 3D effect */
+			transition: transform 0.5s; /* Smooth animation ke liye */
+		}
+
+		
+		#timer:hover {
+			transform: rotateY(0deg) scale(1.1); /* Hover karne par 3D rotation aur scale change */
+		}
+
+        .winner-profile {
+            display: none;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%) rotateY(0deg);
+			background: linear-gradient(to right, #4ca1af, #c4e0e5);
+			padding: 20px;
+			border-radius: 10px;
+			text-align: center;
+			z-index: 10;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+		}
+		
+		 #gameBoard {
+            width: 400px;
+            height: 400px;
+            background-color: lightblue;
+            position: relative;
+        }
+      
+		 
+		
+
+		
+		
+    </style>
+</head>
+<body>
+
+    <!-- Login Container -->
+    <div class="login-container" id="loginContainer">
+        <h2>Login to Play</h2>
+        <form id="loginForm">
+            <input type="text" id="loginPlayer1Name" placeholder="Enter Player 1 Name" required>
+            <input type="text" id="loginPlayer1Username" placeholder="Enter Player 1 Username" required>
+            <input type="file" id="loginPlayer1Image" accept="image/*" required>
+
+            <input type="text" id="loginPlayer2Name" placeholder="Enter Player 2 Name" required>
+            <input type="text" id="loginPlayer2Username" placeholder="Enter Player 2 Username" required>
+            <input type="file" id="loginPlayer2Image" accept="image/*" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="player-profiles">
+            <div class="player-profile">
+                <h3>Player 1 Profile</h3>
+				
+				<img id="profile1Image" src="" alt="Player 1 Image">
+                <p id="profile1Name"></p>
+                <p id="profile1Username"></p>
+                
+            </div>
+            <div class="player-profile">
+                <h3>Player 2 Profile</h3>
+				
+				<img id="profile2Image" src="" alt="Player 2 Image">
+                <p id="profile2Name"></p>
+                <p id="profile2Username"></p>
+                
+            </div>
+        </div>
+
+        <div class="game-area" id="gameArea">
+            <div class="scoreboard">
+                <h2 id="turnIndicator">Player 1's Turn</h2>
+                <p>Player 1 Score: <span id="player1Score">0</span></p>
+                <p>Player 2 Score: <span id="player2Score">0</span></p>
+                <p id="timer">Time Left: 180 seconds</p>
+            </div>
+            <div class="game-board" id="gameBoard"></div>
+        </div>
+		 <div class="leaderboard-container">
+		 
+            <h2>Leaderboard</h2>
+            <table id="leaderboard">
+			<table id="leaderboardTable">
+			 <tbody id="leaderboardBody"></tbody>
+</table>
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+
+	
+    </div>
+
+    <div class="winner-profile" id="winnerProfile">
+        <h2 id="winnerText"></h2>
+        <p id="winnerName"></p>
+        <p id="winnerUsername"></p>
+        <img id="winnerImage" width="80" height="80" />
+    </div>
+	
+	  
+    
+
+
+    <script>
+        const loginContainer = document.getElementById('loginContainer');
+        const gameArea = document.getElementById('gameArea');
+
+        let playerProfiles = {
+            player1: {},
+            player2: {}
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const player1Name = document.getElementById('loginPlayer1Name').value;
+            const player1Username = document.getElementById('loginPlayer1Username').value;
+            const player1Image = document.getElementById('loginPlayer1Image').files[0];
+            const player2Name = document.getElementById('loginPlayer2Name').value;
+            const player2Username = document.getElementById('loginPlayer2Username').value;
+            const player2Image = document.getElementById('loginPlayer2Image').files[0];
+
+            const reader1 = new FileReader();
+            reader1.onloadend = () => {
+                playerProfiles.player1 = {
+                    name: player1Name,
+                    username: player1Username,
+                    image: reader1.result
+                };
+                document.getElementById('profile1Name').textContent = playerProfiles.player1.name;
+                document.getElementById('profile1Username').textContent = playerProfiles.player1.username;
+                document.getElementById('profile1Image').src = playerProfiles.player1.image;
+            };
+            reader1.readAsDataURL(player1Image);
+
+            const reader2 = new FileReader();
+            reader2.onloadend = () => {
+                playerProfiles.player2 = {
+                    name: player2Name,
+                    username: player2Username,
+                    image: reader2.result
+                };
+                document.getElementById('profile2Name').textContent = playerProfiles.player2.name;
+                document.getElementById('profile2Username').textContent = playerProfiles.player2.username;
+                document.getElementById('profile2Image').src = playerProfiles.player2.image;
+            };
+            reader2.readAsDataURL(player2Image);
+
+            loginContainer.style.display = 'none';
+            gameArea.style.display = 'flex';
+
+            initializeGame();
+        });
+		
+		let localConnection, remoteConnection, sendChannel, receiveChannel;
+
+		function startGame() {
+			const playerName = document.getElementById("playerName").value;
+			const playerImage = document.getElementById("playerImage").files[0];
+			if (playerName && playerImage) {
+				// Show the game board
+				document.getElementById("profile").style.display = 'none';
+				document.getElementById("gameBoard").style.display = 'block';
+				document.getElementById("displayName").innerText = playerName;
+				
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					document.getElementById("playerPic").src = e.target.result;
+				};
+				reader.readAsDataURL(playerImage);
+				
+				setupWebRTCConnection();
+			} else {
+				alert("Please enter your name and upload an image.");
+			}
+		}
+
+        
+
+        const cardsArray = [
+            '<img src="sangam.jpg" alt="photo1">',
+            '<img src="himanshu.jpg" alt="photo2">',
+            '<img src="aryan.jpg" alt="photo3">',
+            '<img src="vipin.jpg" alt="photo4">',
+            '<img src="anshul2.jpg" alt="photo5">',
+            '<img src="rikki.jpg" alt="photo6">',
+            '<img src="rahul.jpg" alt="photo7">',
+            '<img src="kamal.jpg" alt="photo8">'
+        ];
+
+        let cards = [...cardsArray, ...cardsArray];
+        cards = cards.sort(() => Math.random() - 0.5);
+
+        const gameBoard = document.getElementById('gameBoard');
+        cards.forEach((cardValue) => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            const front = document.createElement('div');
+            front.classList.add('front');
+
+            const back = document.createElement('div');
+            back.classList.add('back');
+            back.innerHTML = cardValue;
+
+            card.appendChild(front);
+            card.appendChild(back);
+
+            gameBoard.appendChild(card);
+
+            card.addEventListener('click', flipCard);
+        });
+
+        let flippedCards = [];
+        let player1Score = 0;
+        let player2Score = 0;
+        let currentPlayer = 1;
+        let timer = 140;
+
+        const player1ScoreElement = document.getElementById('player1Score');
+        const player2ScoreElement = document.getElementById('player2Score');
+        const turnIndicator = document.getElementById('turnIndicator');
+
+        function flipCard() {
+            if (flippedCards.length < 2) {
+			    flipSound.play();
+                this.classList.add('flipped');
+                flippedCards.push(this);
+            }
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+		
+		let baseTimer = 70; 
+		let currentLevel = 1;
+
+		function startLevel() {
+			let timer = baseTimer - (currentLevel * 10); 
+			startGameWithTimer(timer);
+		}
+
+		function startGameWithTimer(timer) {
+			const timerElement = document.getElementById('timer');
+			let timerInterval = setInterval(() => {
+				timer--;
+				timerElement.textContent = `Time Left: ${timer} seconds`;
+
+        if (timer === 0) {
+            clearInterval(timerInterval);
+			timerEndSound.play();	
+            checkGameOver();
+        }
+    }, 1000);
+}
+
+
+          
+
+
+		const flipSound = new Audio('flip1.mp3');  
+		const timerEndSound = new Audio('match1.mp3');  
+		const levelCompleteSound = new Audio('dogflip.mp3');  
+		const gameOverSound = new Audio('dogflip.mp3');  
+
+
+
+		
+		
+
+        function checkMatch() {
+            const card1 = flippedCards[0].querySelector('.back img').src;
+            const card2 = flippedCards[1].querySelector('.back img').src;
+
+            if (card1 === card2) {
+                flippedCards = [];
+                if (currentPlayer === 1) {
+                    player1Score++;
+                    player1ScoreElement.textContent = player1Score;
+                } else {
+                    player2Score++;
+                    player2ScoreElement.textContent = player2Score;
+                }
+            } else {
+                flippedCards.forEach(card => card.classList.remove('flipped'));
+                flippedCards = [];
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+                updateTurnIndicator();
+            }
+
+            checkGameOver();
+        }
+
+        function updateTurnIndicator() {
+            turnIndicator.textContent = `Player ${currentPlayer}'s Turn`;
+            showPlayerProfile(currentPlayer);
+        }
+
+        
+
+        
+        const timerElement = document.getElementById('timer');
+        const timerInterval = setInterval(() => {
+            timer--;
+            timerElement.textContent = `Time Left: ${timer} seconds`;
+
+            if (timer === 0) {
+                clearInterval(timerInterval);
+                checkGameOver();
+            }
+        }, 1000);
+		
+		
+          let leaderboardData = [];
+
+    
+			   // Function to save leaderboard data to localStorage
+			function saveLeaderboardData(leaderboard) {
+				localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+			}
+
+			// Function to load leaderboard data from localStorage
+			function loadLeaderboardData() {
+				const savedData = localStorage.getItem('leaderboard');
+				return savedData ? JSON.parse(savedData) : [];
+			}
+
+			
+			function saveScore() {
+			const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+			const player1 = {
+				name: document.getElementById('profile1Name').innerText,
+				score: player1Score
+			};
+			const player2 = {
+				name: document.getElementById('profile2Name').innerText,
+				score: player2Score
+			};
+			leaderboard.push(player1, player2);
+			localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+			updateLeaderboard();
+        }
+		
+		function displayLeaderboard() {
+		   firebase.firestore().collection('leaderboard')
+		   .orderBy('score', 'desc')
+		   .limit(10)
+		   .onSnapshot(snapshot => {
+			  let leaderboardHTML = '';
+			  snapshot.forEach(doc => {
+				 let player = doc.data();
+				 leaderboardHTML += `<p>${player.name}: ${player.score}</p>`;
+			  });
+			  document.getElementById('leaderboard').innerHTML = leaderboardHTML;
+		   });
+		}
+
+			function updateLeaderboardDisplay() {
+			const leaderboardTable = document.getElementById("leaderboardTable");
+
+			if (leaderboardTable) {
+				leaderboardTable.innerHTML = ""; // Clear old data
+				// Add new leaderboard data here
+			} else {
+				console.error("Error: leaderboardTable element not found.");
+			}
+		}
+		
+		function updateLeaderboard(playerId, playerName, playerScore) {
+		   firebase.firestore().collection('leaderboard').doc(playerId).set({
+			  name: playerName,
+			  score: playerScore
+		   }).then(() => {
+			  console.log("Leaderboard updated successfully!");
+		   });
+		}
+		
+		
+		// Example function to save and fetch high score
+			function saveHighScore(score) {
+				let highScore = localStorage.getItem('highScore');
+				
+				if (highScore === null || score > highScore) {
+					localStorage.setItem('highScore', score);
+					console.log('New high score: ', score);
+				} else {
+					console.log('High score remains: ', highScore);
+				}
+			}
+
+			function getHighScore() {
+				return localStorage.getItem('highScore') || 0;
+			}
+			
+			const express = require('express');
+		const bodyParser = require('body-parser');
+		const mysql = require('mysql'); // Example for MySQL
+
+		const app = express();
+		app.use(bodyParser.json());
+
+		const db = mysql.createConnection({
+			host: 'localhost',
+			user: 'your_username',
+			password: 'your_password',
+			database: 'your_database'
+		});
+
+		db.connect(err => {
+			if (err) throw err;
+			console.log('Database connected');
+		});
+
+		// Endpoint to save score
+		app.post('/saveScore', (req, res) => {
+			const { name, score } = req.body;
+			db.query('INSERT INTO leaderboard (name, score) VALUES (?, ?)', [name, score], (err, result) => {
+				if (err) throw err;
+				res.send('Score saved');
+			});
+		});
+
+		// Endpoint to get leaderboard
+		app.get('/leaderboard', (req, res) => {
+			db.query('SELECT * FROM leaderboard ORDER BY score DESC', (err, results) => {
+				if (err) throw err;
+				res.json(results);
+			});
+		});
+
+		app.listen(3000, () => {
+			console.log('Server running on port 3000');
+		});
+		
+		async function submitScore(name, score) {
+		const response = await fetch('/saveScore', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ name, score })
+		});
+		
+		if (response.ok) {
+			console.log('Score submitted successfully');
+		} else {
+			console.log('Error submitting score');
+		}
+	}
+	
+		async function fetchLeaderboard() {
+		const response = await fetch('/leaderboard');
+		const data = await response.json();
+		
+		// Display leaderboard
+		console.log(data);
+	}
+
+
+
+
+
+		function initializeGame() {
+			console.log("Game initialized");
+		 
+		}
+
+
+		document.getElementById("playAudioButton").addEventListener("click", function() {
+			const audio = new Audio('path/to/sound.mp3');
+			audio.play().catch(error => {
+				console.error("Media playback failed: ", error);
+			});
+		});
+
+
+
+		  
+			function updateLeaderboard(winner) {
+			const leaderboardBody = document.getElementById('leaderboardBody');
+			const row = document.createElement('tr');
+			const playerCell = document.createElement('td');
+			const scoreCell = document.createElement('td');
+
+			playerCell.textContent = winner ? winner.name : 'Tie';
+			scoreCell.textContent = `${player1Score} - ${player2Score}`;
+
+			row.appendChild(playerCell);
+			row.appendChild(scoreCell);
+			leaderboardBody.appendChild(row);
+		}
+
+		   
+		    	function checkGameOver() {
+				const totalPairs = cardsArray.length; // Total pairs to match
+				if (player1Score + player2Score === totalPairs) {
+					gameOverSound.play();
+					declareWinner();
+				}
+			}
+			
+			
+			function declareTie() {
+			winnerText.innerText = `Match Drawn!`;
+			winnerProfile.style.display = 'block';
+			gameOverSound.play();  
+		}
+			
+			
+		   
+		   	function declareWinner() {
+				let winner, winnerName, winnerUsername, winnerImage;
+				if (player1Score > player2Score) {
+					winner = playerProfiles.player1;
+				} else if (player2Score > player1Score) {
+					winner = playerProfiles.player2;
+				} else {
+					winner = null; // It's a tie
+				}
+
+				if (winner) {
+					document.getElementById('winnerText').textContent = `Congratulations, ${winner.name}!`;
+					document.getElementById('winnerName').textContent = winner.name;
+					document.getElementById('winnerUsername').textContent = winner.username;
+					document.getElementById('winnerImage').src = winner.image;
+					document.getElementById('winnerProfile').style.display = 'block';
+				} else {
+					document.getElementById('winnerText').textContent = 'It\'s a tie!';
+					document.getElementById('winnerProfile').style.display = 'block';
+				}
+
+				// Update leaderboard
+				updateLeaderboard(winner);
+			}
+			
+							// High Score ko Local Storage mein save karne ka example
+				let currentScore = 1000;
+				let highScore = localStorage.getItem('highScore') || 0;
+
+				if (currentScore > highScore) {
+					localStorage.setItem('highScore', currentScore);
+					console.log('New high score: ', currentScore);
+				} else {
+					console.log('High score remains: ', highScore);
+				}
+
+
+
+        function playWinSound() {
+            const winSound = new Audio('win.mp3');
+            winSound.play();
+        }
+		
+		
+
+   
+    function showPlayerProfile() {
+    const profileNameElement = document.getElementById("profileName");
+
+    if (profileNameElement) {
+        const profileName = profileNameElement.textContent;
+        document.getElementById("playerProfile").innerHTML = `
+            <div class="profile">
+                <h2>${profileName}</h2>
+                <p>Welcome to the game!</p>
+            </div>
+        `;
+    } else {
+        console.error("Error: profileName element not found.");
+    }
+		}
+
+		
+    </script>
+
+</body>
+</html>

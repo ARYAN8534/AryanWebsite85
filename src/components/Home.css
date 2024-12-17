@@ -1,0 +1,238 @@
+.home {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background: radial-gradient(circle at top, #333333, #808080);
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    color:#45a049;
+  }
+  
+  #home, h1 {
+    color:red;
+  }
+
+  .contact img {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    object-fit: cover;
+    border-radius: 0px;
+    margin-bottom: 0px;
+  }
+  
+ 
+
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2em;
+    color: #4caf50;
+  }
+  
+  .section {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .profileImage {
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  .name {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .jobTitle {
+    font-size: 1.2em;
+    color: #555;
+  }
+  
+  .bio {
+    margin: 10px 0;
+  }
+  
+  .button {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .button:hover {
+    background-color: #45a049;
+  }
+  
+
+  .footer {
+    background: linear-gradient(135deg, #c4d1df, #7296ba); /* Subtle gradient */
+    color: #ecf0f1;
+    padding: 40px 20px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    
+  }
+  
+  .footer .newsletter {
+    margin-bottom: 30px;
+  }
+  
+  .newsletter form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Makes it mobile-friendly */
+  }
+  
+  .newsletter input[type="email"] {
+    padding: 12px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    width: 200px;
+    max-width: 100%;
+  }
+  
+  .newsletter button {
+    padding: 12px 25px;
+    font-size: 16px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .newsletter button:hover {
+    background-color: #c0392b;
+  }
+  
+  .social-media-icons {
+    margin: 20px 0;
+  }
+  
+  .social-media-icons a {
+    margin: 0 15px;
+    font-size: 24px;
+    color: #ecf0f1;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .social-media-icons a:hover {
+    color: #1abc9c;
+    transform: scale(1.2); /* Zoom effect on hover */
+  }
+  
+  .footer h4 {
+    margin: 30px 0 10px;
+    font-size: 18px;
+    color: #ecf0f1;
+    text-transform: uppercase;
+  }
+  
+  .footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .footer ul li {
+    margin: 0;
+  }
+  
+  .footer ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .footer ul li a:hover {
+    color: #3498db;
+  }
+  
+  .footer p {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .footer button {
+    background-color: #1abc9c;
+    color: #fff;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left:50px;
+    margin-bottom:20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .footer button:hover {
+    background-color: #16a085;
+  
+  }
+  
+  .footer .back-to-top {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .footer .back-to-top:hover {
+    background-color: #c0392b;
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: 768px) {
+    .newsletter form {
+      flex-direction: column;
+    }
+  
+    .newsletter input[type="email"] {
+      width: 100%;
+    }
+  
+    .social-media-icons a {
+      font-size: 20px;
+    }
+  
+    .footer ul {
+      flex-direction: column;
+    }
+  }
+  
+  
+  .d {
+  
+    margin-left:650px;
+    width:400px;
+    margin-top: -230px;;
+  
+  }
+  
+  
+  
