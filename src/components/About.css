@@ -13,6 +13,7 @@
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
+  
 }
 
 .hobbies-container {
@@ -374,7 +375,27 @@ body {
     margin-bottom: 20px;
   }
 
- 
+  .resume-section {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  
+  .resume-download-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resume-download-button:hover {
+    background-color: #0056b3;
+  }
+  
 
 
 

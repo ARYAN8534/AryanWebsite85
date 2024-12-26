@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faWhatsapp, faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { useTranslation } from "react-i18next";
+import i18n from "./i18n";
+
 
 // Importing Components
 import Home from "./components/Home";
@@ -13,7 +16,17 @@ import About from "./components/About";
 
 import "./App.css";
 
+
+
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+
 const App = () => {
+  const { t, i18n } = useTranslation();
+   const [showButton, setShowButton] = useState(false);
   const [theme, setTheme] = useState("light"); // State for theme (light/dark)
 
   // Theme toggle function
@@ -30,6 +43,27 @@ const App = () => {
       setTheme(savedTheme);
     }
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll); // Cleanup
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scroll effect
+    });
+  };
 
  
 
@@ -60,60 +94,72 @@ const App = () => {
   }, []);
 
   return (
-    <div className={`app ${theme}`}>
-      <Router>
-        {/* Navbar */}
-        <nav className={`navbar ${theme}`}>
-          <div className="navbar-logo">My Portfolio</div>
-          <ul className="navbar-links">
-            <li>
-              <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/project" className={({ isActive }) => (isActive ? "active" : "")}>
-                Project
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/skills" className={({ isActive }) => (isActive ? "active" : "")}>
-                Skills
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/contect" className={({ isActive }) => (isActive ? "active" : "")}>
-                Contact
-              </NavLink>
-            </li>
-          </ul>
-          {/* Theme Toggle */}
-          <div className="theme-toggle">
-            <label className="switch">
-              <input type="checkbox" checked={theme === "dark"} onChange={toggleTheme} />
-              <span className="slider"></span>
-            </label>
-
-
-          </div>
-        </nav>
-
-        {/* Main Content */}
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/project" element={<Project />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/contect" element={<Contect />} />
-          </Routes>
-        </main>
-      </Router>
+   
+      <div className={`app ${theme}`}>
+        <Router>
+          {/* Navbar */}
+          <nav className={`navbar ${theme}`}>
+            <div className="navbar-logo">{t("navbar.logo")}</div>
+            <ul className="navbar-links">
+              <li>
+                <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+                  {t("navbar.home")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>
+                  {t("navbar.about")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/project" className={({ isActive }) => (isActive ? "active" : "")}>
+                  {t("navbar.project")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/skills" className={({ isActive }) => (isActive ? "active" : "")}>
+                  {t("navbar.skills")}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/contect" className={({ isActive }) => (isActive ? "active" : "")}>
+                  {t("navbar.contact")}
+                </NavLink>
+              </li>
+            </ul>
+            {/* Theme Toggle */}
+            <div className="theme-toggle">
+              <label className="switch">
+                <input type="checkbox" checked={theme === "dark"} onChange={toggleTheme} />
+                <span className="slider"></span>
+              </label>
+            </div>
+            {/* Language Selector */}
+            <div className="language-selector">
+              <button onClick={() => changeLanguage("en")}>English</button>
+              <button onClick={() => changeLanguage("hi")}>हिन्दी</button>
+            </div>
+          </nav>
+    
+          {/* Main Content */}
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/project" element={<Project />} />
+              <Route path="/skills" element={<Skills />} />
+              <Route path="/contect" element={<Contect />} />
+            </Routes>
+          </main>
+        </Router>
+    
+        {/* Back to Top Button */}
+        {showButton && (
+          <button className="back-to-top" onClick={scrollToTop}>
+            {t("backToTop")}
+          </button>
+        )}
+    
 
      
 
@@ -125,6 +171,7 @@ const App = () => {
             Download My Portfolio
           </a>
         </p>
+        <p>&copy; 2024 {t("footer.copyright")}</p>
         <p>&copy; 2024 Aryan Saini. All Rights Reserved.</p>
         <div className="social-media-icons">
           <a href="https://www.facebook.com/aryansaini.nishu" target="_blank" rel="noopener noreferrer">
@@ -149,6 +196,9 @@ const App = () => {
         <p>"Your Success, Our Commitment!"</p>
         <p>Designed and Developed by Aryan Saini</p>
       </div>
+
+      
+
     </div>
   );
 };

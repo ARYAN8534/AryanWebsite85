@@ -49,6 +49,16 @@ export default function About() {
           <a href="https://ARYAN8534.github.io/Resume/" className="button" target="_blank" rel="noopener noreferrer">
             Open CV
           </a>
+          <div className="resume-section">
+
+          <a 
+    href="/resume.pdf" 
+    download 
+    className="resume-download-button"
+  >
+    Download Resume
+  </a>
+  </div>
         </div>
       </section>
 

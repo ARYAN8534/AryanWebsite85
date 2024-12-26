@@ -5,6 +5,7 @@ import Skills from "./Skills";
 import Contect from "./Contect";
 
 const Home = () => {
+  
   return (
     <div>
     <section id="home" style={{ color: 'black' }}>
