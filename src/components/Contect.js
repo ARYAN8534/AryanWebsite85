@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faWhatsapp, faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import emailjs from "emailjs-com";
+
 import "./Contect.css";
 
 const Contact = () => {
@@ -12,6 +14,8 @@ const Contact = () => {
     message: "",
     phone: "",
   });
+
+  const [isSending, setIsSending] = useState(false); // For showing loader or status
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,11 +35,40 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSending(true); // Set the sending state to true
 
-    
-    console.log("Form Data:", formData);
-
-    alert("Form data has been logged to the console!");
+    // EmailJS integration
+    emailjs
+      .send(
+        "Aryan Saini", // Replace with your Service ID
+        "template_f28fnid", // Replace with your Template ID
+        {
+          name: formData.name,
+          email: formData.email,
+          dob: formData.dob,
+          message: formData.message,
+          phone: formData.phone,
+        },
+        "Nl2B6fM1D4ZPuia15" // Replace with your User ID (Public Key)
+      )
+      .then(
+        (result) => {
+          console.log("Email sent successfully:", result.text);
+          alert("Your message has been sent!");
+          setFormData({
+            name: "",
+            email: "",
+            dob: "",
+            message: "",
+            phone: "",
+          });
+        },
+        (error) => {
+          console.error("Error sending email:", error.text);
+          alert("Failed to send the message. Please try again.");
+        }
+      )
+      .finally(() => setIsSending(false)); // Reset the sending state
   };
 
   return (
@@ -94,7 +127,9 @@ const Contact = () => {
             onChange={handleChange}
           /><br /><br />
 
-          <button type="submit">Send Message</button>
+          <button type="submit" disabled={isSending}>
+            {isSending ? "Sending..." : "Send Message"}
+          </button>
         </form>
       </section>
 
@@ -172,3 +207,5 @@ const Contact = () => {
 };
 
 export default Contact;
+
+

@@ -1,8 +1,18 @@
 {
-    "welcome": "Welcome to My Portfolio",
+  "navbar": {
+    "logo": "My Portfolio",
+    "home": "Home",
     "about": "About",
-    "projects": "Projects",
+    "project": "Project",
     "skills": "Skills",
     "contact": "Contact"
+  },
+  "backToTop": "⬆ Back to Top",
+  "footer": {
+    "downloadPortfolio": "Download My Portfolio",
+    "copyright": "Aryan Saini. All Rights Reserved.",
+    "contactMessage": "Call or Message me on",
+    "tagline": "Your Success, Our Commitment!",
+    "designedBy": "Designed and Developed by Aryan Saini"
   }
-  
+}

@@ -423,6 +423,48 @@ input:checked + .slider:before {
   transform: translateX(25px);
 }
 
+.language-selector {
+  position: relative;
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.language-selector select {
+  appearance: none; /* Hide default dropdown styles */
+  background: linear-gradient(90deg, #cf0404, #ddb0b7); /* Gradient background */
+  color: #fff; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 25px; /* Fully rounded corners */
+  padding: 5px 25px; /* Compact padding for a smaller size */
+  font-size: 14px; /* Slightly smaller font size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transitions */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a lifted effect */
+}
+
+.language-selector select:hover {
+  background: linear-gradient(90deg, #03c386, #daed8e); /* Brighter gradient on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.language-selector select:focus {
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 8px rgba(243, 193, 203, 0.8); /* Pinkish glow on focus */
+}
+
+.language-selector::after {
+  content: "▼"; /* Custom dropdown arrow */
+  font-size: 10px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Arrow shouldn't be clickable */
+  color: #fffefe;
+  padding: -8px;
+}
+
 
 
 

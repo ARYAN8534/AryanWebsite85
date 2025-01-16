@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "./i18n";
 
 
+
 // Importing Components
 import Home from "./components/Home";
 import Skills from "./components/Skills";
@@ -136,8 +137,11 @@ const App = () => {
             </div>
             {/* Language Selector */}
             <div className="language-selector">
-              <button onClick={() => changeLanguage("en")}>English</button>
-              <button onClick={() => changeLanguage("hi")}>हिन्दी</button>
+            <select onChange={(e) => changeLanguage(e.target.value)}>
+              <option value="en">English</option>
+              <option value="hi">हिंदी</option>
+            </select>
+
             </div>
           </nav>
     
@@ -171,7 +175,7 @@ const App = () => {
             Download My Portfolio
           </a>
         </p>
-        <p>&copy; 2024 {t("footer.copyright")}</p>
+        
         <p>&copy; 2024 Aryan Saini. All Rights Reserved.</p>
         <div className="social-media-icons">
           <a href="https://www.facebook.com/aryansaini.nishu" target="_blank" rel="noopener noreferrer">

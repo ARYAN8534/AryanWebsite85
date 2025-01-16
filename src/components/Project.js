@@ -9,13 +9,14 @@ function Projects() {
     {
       title: "Chess Game",
       image: chessgameImage,
-      link: "ChessGame/Index.html",
+      link: "/ChessGame/Index.html",
+
       description: "Chess Game is an interactive and challenging digital version of the classic chessboard. It allows users to play against a computer or another player."
     },
     {
-      title: "Memory Matching Game",
+      title: "Memory Matching Game",   
       image: MemoriGame2Image,
-      link: "/memoryMachingGame/hhh.html", // Public folder path
+      link: "/memoryMachingGame/hhh.html", 
       description: "Memory Matching Game is a fun and educational game designed to test and improve memory and concentration by matching pairs of cards."
     },
     {
