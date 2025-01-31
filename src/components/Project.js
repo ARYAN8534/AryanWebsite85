@@ -9,14 +9,14 @@ function Projects() {
     {
       title: "Chess Game",
       image: chessgameImage,
-      link: "/ChessGame/Index.html",
+      link: " https://aryan8534.github.io/ChessGame11/",
 
       description: "Chess Game is an interactive and challenging digital version of the classic chessboard. It allows users to play against a computer or another player."
     },
     {
       title: "Memory Matching Game",   
       image: MemoriGame2Image,
-      link: "/memoryMachingGame/hhh.html", 
+      link: " https://aryan8534.github.io/MemoriMetchingGame/", 
       description: "Memory Matching Game is a fun and educational game designed to test and improve memory and concentration by matching pairs of cards."
     },
     {
